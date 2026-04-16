@@ -741,7 +741,7 @@ input:focus {
   }
 
   .top-glass {
-    padding: calc(22px + env(safe-area-inset-top)) 26px 0 24px;
+    padding: calc(52px + env(safe-area-inset-top)) 26px 0 24px;
     gap: 10px;
   }
 
@@ -766,7 +766,7 @@ input:focus {
   }
 
   .messages {
-    padding: 96px 10px 152px;
+    padding: 136px 10px 152px;
   }
 
   .msg {
