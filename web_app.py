@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import os
@@ -356,7 +356,7 @@ def api_answer():
     state["current_task"] = None
 
     if awarded_today:
-        feedback += "\n\n+1 РѕС‡РєРѕ РІ Р»РёРґРµСЂР±РѕСЂРґ Р·Р° РїСЂР°РІРёР»СЊРЅС‹Р№ РїРµСЂРµРІРѕРґ СЃРµРіРѕРґРЅСЏ."
+        feedback += "\n\n+1 очко в лидерборд за правильный перевод сегодня."
 
     _add_bot_message(state, feedback)
     _add_bot_message(state, "Что дальше? Используй кнопки «Следующее предложение» или «Больше информации».")
