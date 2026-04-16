@@ -23,6 +23,15 @@ const API_BASE =
 let isSending = false;
 let currentState = null;
 
+function applyRuntimeMode() {
+  const tg = window.Telegram && window.Telegram.WebApp;
+  const ua = navigator.userAgent || "";
+  const isTelegramWebView = Boolean(tg) || /Telegram/i.test(ua);
+  const isMobile = window.matchMedia("(max-width: 699px)").matches;
+
+  document.body.classList.toggle("tg-lite", isTelegramWebView && isMobile);
+}
+
 async function api(path, method = "GET", body = null) {
   const res = await fetch(`${API_BASE}${path}`, {
     method,
@@ -268,6 +277,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 (async () => {
+  applyRuntimeMode();
   await syncTelegramProfile();
   await refresh();
 })();
