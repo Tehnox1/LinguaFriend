@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 import os
@@ -123,18 +123,13 @@ def _sync_leaderboard_profile(state: Dict[str, Any]) -> None:
     _save_leaderboard(data)
 
 
-def _award_daily_point(state: Dict[str, Any]) -> bool:
+def _award_point(state: Dict[str, Any]) -> bool:
     data = _load_leaderboard()
     key = _leaderboard_key(state)
     row = data.get(key, {"display_name": state["display_name"], "score": 0, "last_point_day": ""})
     row["display_name"] = state["display_name"]
-    today = _today_key()
-    if row.get("last_point_day") == today:
-        data[key] = row
-        _save_leaderboard(data)
-        return False
     row["score"] = int(row.get("score", 0)) + 1
-    row["last_point_day"] = today
+    row["last_point_day"] = _today_key()
     data[key] = row
     _save_leaderboard(data)
     return True
@@ -296,17 +291,19 @@ def api_answer():
     if not task:
         task = _generate_next_task(state)
         state["current_task"] = _sanitize_task_for_store(task)
-        _add_bot_message(state, "РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРµРј Р·Р°РґР°РЅРёРµ.\n" + bot.build_question_text(task))
+        _add_bot_message(state, "Сначала выберем задание.\n" + bot.build_question_text(task))
         return jsonify(_build_payload(state))
 
     awarded_today = False
+    answer_is_correct = False
     mode = state.get("mode", "ai")
     if mode == "ai":
         try:
             review = bot.evaluate_ai_answer(state.get("level", "A2"), task, user_text)
             feedback = bot.build_ai_feedback(review)
-            if bool(review.get("is_correct")):
-                awarded_today = _award_daily_point(state)
+            answer_is_correct = bool(review.get("is_correct"))
+            if answer_is_correct:
+                awarded_today = _award_point(state)
             review_context = {
                 "correct_translation": review.get("correct_translation", ""),
                 "explanation": review.get("explanation", ""),
@@ -324,8 +321,9 @@ def api_answer():
                 + bot.build_fallback_feedback(user_text, scenario)
             )
             best_expected, best_score = bot.pick_best_expected(user_text, scenario.expected_answers)
-            if best_score >= 0.88:
-                awarded_today = _award_daily_point(state)
+            answer_is_correct = best_score >= 0.88
+            if answer_is_correct:
+                awarded_today = _award_point(state)
             review_context = {
                 "correct_translation": best_expected,
                 "explanation": scenario.grammar_note,
@@ -340,8 +338,9 @@ def api_answer():
             scenario = bot.FALLBACK_SCENARIOS[int(idx)]
         feedback = bot.build_fallback_feedback(user_text, scenario)
         best_expected, best_score = bot.pick_best_expected(user_text, scenario.expected_answers)
-        if best_score >= 0.88:
-            awarded_today = _award_daily_point(state)
+        answer_is_correct = best_score >= 0.88
+        if answer_is_correct:
+            awarded_today = _award_point(state)
         review_context = {
             "correct_translation": best_expected,
             "explanation": scenario.grammar_note,
@@ -356,7 +355,7 @@ def api_answer():
     state["current_task"] = None
 
     if awarded_today:
-        feedback += "\n\n+1 очко в лидерборд за правильный перевод сегодня."
+        feedback += "\n\n+1 очко в лидерборд за правильный перевод."
 
     _add_bot_message(state, feedback)
     _add_bot_message(state, "Что дальше? Используй кнопки «Следующее предложение» или «Больше информации».")

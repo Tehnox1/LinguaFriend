@@ -32,6 +32,10 @@ function applyRuntimeMode() {
   document.body.classList.toggle("tg-lite", isTelegramWebView && isMobile);
 }
 
+function shouldAutoFocusInput() {
+  return !window.matchMedia("(max-width: 699px)").matches;
+}
+
 async function api(path, method = "GET", body = null) {
   const res = await fetch(`${API_BASE}${path}`, {
     method,
@@ -218,7 +222,11 @@ async function simulateBotReply(path, body = null, userEchoText = "") {
     if (tempUser && tempUser.parentNode) tempUser.remove();
     if (typing.parentNode) typing.remove();
     answerInput.disabled = originalDisabled;
-    answerInput.focus();
+    if (shouldAutoFocusInput()) {
+      answerInput.focus();
+    } else {
+      answerInput.blur();
+    }
     isSending = false;
   }
 }
