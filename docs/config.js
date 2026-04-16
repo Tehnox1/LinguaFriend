@@ -1,3 +1,3 @@
 window.APP_CONFIG = {
-  apiBaseUrl: ""
+  apiBaseUrl: "https://linguafriend-api.onrender.com"
 };
