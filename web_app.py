@@ -192,7 +192,6 @@ def _intro_text() -> str:
         "и «Больше информации»."
     )
 
-
 def _build_payload(state: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "level": state.get("level"),
@@ -251,14 +250,7 @@ def api_set_level():
 
     state["level"] = level
     state["current_task"] = None
-
-    try:
-        task = _generate_next_task(state)
-        state["current_task"] = _sanitize_task_for_store(task)
-        _add_bot_message(state, bot.build_question_text(task))
-    except Exception:
-        _add_bot_message(state, "Уровень выбран, но первое задание сейчас не загрузилось. Попробуй еще раз.")
-
+    state["last_review"] = None
     return jsonify(_build_payload(state))
 
 
@@ -292,19 +284,19 @@ def api_answer():
     data = request.get_json(silent=True) or {}
     user_text = str(data.get("text", "")).strip()
     if not user_text:
-        return jsonify({"error": "Пустой ответ"}), 400
+        return jsonify({"error": "РџСѓСЃС‚РѕР№ РѕС‚РІРµС‚"}), 400
 
     _add_user_message(state, user_text)
 
     if not state.get("level"):
-        _add_bot_message(state, "Сначала выбери уровень сложности.")
+        _add_bot_message(state, "РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРё СѓСЂРѕРІРµРЅСЊ СЃР»РѕР¶РЅРѕСЃС‚Рё.")
         return jsonify(_build_payload(state))
 
     task = state.get("current_task")
     if not task:
         task = _generate_next_task(state)
         state["current_task"] = _sanitize_task_for_store(task)
-        _add_bot_message(state, "Сначала выберем задание.\n" + bot.build_question_text(task))
+        _add_bot_message(state, "РЎРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРµРј Р·Р°РґР°РЅРёРµ.\n" + bot.build_question_text(task))
         return jsonify(_build_payload(state))
 
     awarded_today = False
@@ -328,7 +320,7 @@ def api_answer():
             else:
                 scenario = bot.FALLBACK_SCENARIOS[int(idx)]
             feedback = (
-                "Нейросеть временно недоступна, поэтому я проверил ответ в запасном режиме.\n"
+                "РќРµР№СЂРѕСЃРµС‚СЊ РІСЂРµРјРµРЅРЅРѕ РЅРµРґРѕСЃС‚СѓРїРЅР°, РїРѕСЌС‚РѕРјСѓ СЏ РїСЂРѕРІРµСЂРёР» РѕС‚РІРµС‚ РІ Р·Р°РїР°СЃРЅРѕРј СЂРµР¶РёРјРµ.\n"
                 + bot.build_fallback_feedback(user_text, scenario)
             )
             best_expected, best_score = bot.pick_best_expected(user_text, scenario.expected_answers)
@@ -364,7 +356,7 @@ def api_answer():
     state["current_task"] = None
 
     if awarded_today:
-        feedback += "\n\n+1 очко в лидерборд за правильный перевод сегодня."
+        feedback += "\n\n+1 РѕС‡РєРѕ РІ Р»РёРґРµСЂР±РѕСЂРґ Р·Р° РїСЂР°РІРёР»СЊРЅС‹Р№ РїРµСЂРµРІРѕРґ СЃРµРіРѕРґРЅСЏ."
 
     _add_bot_message(state, feedback)
     _add_bot_message(state, "Что дальше? Используй кнопки «Следующее предложение» или «Больше информации».")
@@ -386,3 +378,4 @@ def api_more_info():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
