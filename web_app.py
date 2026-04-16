@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import zlib
 import uuid
 from datetime import datetime, timedelta, timezone
@@ -13,7 +14,7 @@ from flask import Flask, jsonify, render_template, request, session
 import telegram_english_bot_latest as bot
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "replace-with-secure-secret"
+app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "replace-with-secure-secret")
 
 STATE_FILE = Path("leaderboard.json")
 try:
