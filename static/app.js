@@ -17,6 +17,14 @@ const openLeaderboardBtn = document.getElementById("openLeaderboardBtn");
 const coinsOverlay = document.getElementById("coinsOverlay");
 const coinsBackdrop = document.getElementById("coinsBackdrop");
 const closeCoinsBtn = document.getElementById("closeCoinsBtn");
+const reminderOverlay = document.getElementById("reminderOverlay");
+const reminderBackdrop = document.getElementById("reminderBackdrop");
+const closeReminderBtn = document.getElementById("closeReminderBtn");
+const openReminderBtn = document.getElementById("openReminderBtn");
+const reminderTimeInput = document.getElementById("reminderTimeInput");
+const saveReminderBtn = document.getElementById("saveReminderBtn");
+const clearReminderBtn = document.getElementById("clearReminderBtn");
+const reminderStatus = document.getElementById("reminderStatus");
 const levelButtons = Array.from(document.querySelectorAll(".level-pill"));
 const nextButton = document.getElementById("nextBtn");
 const moreInfoButton = document.getElementById("moreInfoBtn");
@@ -29,10 +37,104 @@ const API_BASE =
 let isSending = false;
 let currentState = null;
 let currentTheme = "light";
+let reminderTimeoutId = null;
 
 function updateCoinBadge(state) {
   if (!coinValueEl) return;
   coinValueEl.textContent = String((state && state.coins) || 0);
+}
+
+function getReminderTime() {
+  try {
+    return localStorage.getItem("linguafriend-reminder-time") || "";
+  } catch {
+    return "";
+  }
+}
+
+function setReminderStatusText(text) {
+  if (reminderStatus) {
+    reminderStatus.textContent = text;
+  }
+}
+
+function refreshReminderUI() {
+  const reminderTime = getReminderTime();
+  if (reminderTimeInput) {
+    reminderTimeInput.value = reminderTime;
+  }
+  if (reminderTime) {
+    setReminderStatusText(`Напоминание включено на ${reminderTime}`);
+  } else {
+    setReminderStatusText("Напоминание выключено");
+  }
+}
+
+function showLessonReminder() {
+  const body = "Пора начать урок в LinguaFriend.";
+  if ("Notification" in window && Notification.permission === "granted") {
+    new Notification("Напоминание о занятии", { body });
+  } else {
+    addTempMessage("bot", body);
+  }
+}
+
+function scheduleReminder() {
+  if (reminderTimeoutId) {
+    clearTimeout(reminderTimeoutId);
+    reminderTimeoutId = null;
+  }
+
+  const reminderTime = getReminderTime();
+  if (!reminderTime) return;
+
+  const [hours, minutes] = reminderTime.split(":").map(Number);
+  if (!Number.isInteger(hours) || !Number.isInteger(minutes)) return;
+
+  const now = new Date();
+  const next = new Date();
+  next.setHours(hours, minutes, 0, 0);
+  if (next <= now) {
+    next.setDate(next.getDate() + 1);
+  }
+
+  reminderTimeoutId = window.setTimeout(() => {
+    showLessonReminder();
+    scheduleReminder();
+  }, next.getTime() - now.getTime());
+}
+
+async function saveReminder() {
+  const value = reminderTimeInput ? reminderTimeInput.value : "";
+  if (!value) {
+    setReminderStatusText("Сначала выбери время");
+    return;
+  }
+
+  if ("Notification" in window && Notification.permission === "default") {
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      setReminderStatusText("Разреши уведомления, чтобы напоминание работало");
+      return;
+    }
+  }
+
+  try {
+    localStorage.setItem("linguafriend-reminder-time", value);
+  } catch {}
+  refreshReminderUI();
+  scheduleReminder();
+}
+
+function clearReminder() {
+  try {
+    localStorage.removeItem("linguafriend-reminder-time");
+  } catch {}
+  if (reminderTimeoutId) {
+    clearTimeout(reminderTimeoutId);
+    reminderTimeoutId = null;
+  }
+  refreshReminderUI();
 }
 
 function applyRuntimeMode() {
@@ -210,6 +312,15 @@ function closeCoins() {
   coinsOverlay.hidden = true;
 }
 
+function openReminder() {
+  reminderOverlay.hidden = false;
+  refreshReminderUI();
+}
+
+function closeReminder() {
+  reminderOverlay.hidden = true;
+}
+
 async function syncTelegramProfile() {
   const tg = window.Telegram && window.Telegram.WebApp;
   const user = tg && tg.initDataUnsafe && tg.initDataUnsafe.user;
@@ -293,8 +404,27 @@ leaderboardBackdrop.addEventListener("click", closeLeaderboard);
 if (coinBadge) {
   coinBadge.addEventListener("click", openCoins);
 }
-closeCoinsBtn.addEventListener("click", closeCoins);
-coinsBackdrop.addEventListener("click", closeCoins);
+if (closeCoinsBtn) {
+  closeCoinsBtn.addEventListener("click", closeCoins);
+}
+if (coinsBackdrop) {
+  coinsBackdrop.addEventListener("click", closeCoins);
+}
+if (openReminderBtn) {
+  openReminderBtn.addEventListener("click", openReminder);
+}
+if (closeReminderBtn) {
+  closeReminderBtn.addEventListener("click", closeReminder);
+}
+if (reminderBackdrop) {
+  reminderBackdrop.addEventListener("click", closeReminder);
+}
+if (saveReminderBtn) {
+  saveReminderBtn.addEventListener("click", saveReminder);
+}
+if (clearReminderBtn) {
+  clearReminderBtn.addEventListener("click", clearReminder);
+}
 closeMenuBtn.addEventListener("click", closeMenu);
 menuBackdrop.addEventListener("click", closeMenu);
 
@@ -343,6 +473,8 @@ document.addEventListener("keydown", (event) => {
 (async () => {
   applyRuntimeMode();
   loadTheme();
+  refreshReminderUI();
+  scheduleReminder();
   await syncTelegramProfile();
   await refresh();
 })();

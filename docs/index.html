@@ -57,6 +57,11 @@
             <span class="menu-label">Таблица лидеров</span>
             <button id="openLeaderboardBtn" class="leaderboard-open-btn" type="button">Открыть список</button>
           </div>
+
+          <div class="menu-block menu-reminder-trigger">
+            <span class="menu-label">Напоминание</span>
+            <button id="openReminderBtn" class="leaderboard-open-btn" type="button">Настроить</button>
+          </div>
         </section>
       </div>
 
@@ -88,6 +93,26 @@
               <div class="coins-rule"><span>5 место</span><strong>5</strong></div>
             </div>
             <p class="coins-note">У нового пользователя изначально 0 монет.</p>
+          </div>
+        </section>
+      </div>
+
+      <div id="reminderOverlay" class="menu-overlay" hidden>
+        <div id="reminderBackdrop" class="menu-backdrop"></div>
+        <section class="menu-panel reminder-panel" aria-label="Reminder setup">
+          <div class="menu-head">
+            <h2>Напоминание</h2>
+            <button id="closeReminderBtn" class="menu-close" type="button" aria-label="Закрыть">×</button>
+          </div>
+          <div class="reminder-info">
+            <p>Выбери время, когда сайт напомнит о начале урока.</p>
+            <label class="reminder-time-label" for="reminderTimeInput">Время</label>
+            <input id="reminderTimeInput" class="reminder-time-input" type="time" />
+            <p id="reminderStatus" class="reminder-status">Напоминание выключено</p>
+            <div class="reminder-actions">
+              <button id="saveReminderBtn" class="leaderboard-open-btn" type="button">Сохранить</button>
+              <button id="clearReminderBtn" class="level-pill" type="button">Выключить</button>
+            </div>
           </div>
         </section>
       </div>
