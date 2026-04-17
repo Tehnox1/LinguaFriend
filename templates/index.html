@@ -11,6 +11,10 @@
     <section class="phone-shell">
       <header class="top-glass">
         <div class="top-pill">LinguaFriend</div>
+        <div id="coinBadge" class="coin-badge" aria-label="Coins">
+          <span class="coin-icon" aria-hidden="true">◎</span>
+          <span id="coinValue" class="coin-value">0</span>
+        </div>
         <button id="topMenuBtn" class="top-menu-btn" type="button" aria-label="Меню">⋮</button>
       </header>
 
@@ -22,7 +26,16 @@
             <button id="closeMenuBtn" class="menu-close" type="button" aria-label="Закрыть">×</button>
           </div>
 
-          <div class="menu-block">
+          <div class="menu-block menu-inline-row">
+            <span class="menu-label">Тёмная тема</span>
+            <button id="themeToggle" class="hint-switch" type="button" aria-pressed="false">
+              <span class="hint-switch-track">
+                <span class="hint-switch-thumb"></span>
+              </span>
+            </button>
+          </div>
+
+          <div class="menu-block menu-inline-row">
             <span class="menu-label">Подсказки</span>
             <button id="hintToggle" class="hint-switch" type="button" aria-pressed="true">
               <span class="hint-switch-track">
@@ -30,7 +43,6 @@
               </span>
             </button>
           </div>
-
 
           <div class="menu-block menu-levels">
             <span class="menu-label">Сложность</span>
@@ -42,16 +54,8 @@
           </div>
 
           <div class="menu-block menu-leaderboard-trigger">
-            <span class="menu-label centered-label">Таблица лидеров</span>
+            <span class="menu-label">Таблица лидеров</span>
             <button id="openLeaderboardBtn" class="leaderboard-open-btn" type="button">Открыть список</button>
-          </div>
-
-          <div class="menu-block menu-theme">
-            <span class="menu-label centered-label">Тема</span>
-            <div class="theme-pills">
-              <button id="lightThemeBtn" class="theme-pill active" data-theme="light" type="button">Светлая</button>
-              <button id="darkThemeBtn" class="theme-pill" data-theme="dark" type="button">Тёмная</button>
-            </div>
           </div>
         </section>
       </div>
@@ -98,4 +102,3 @@
   <script src="/static/app.js"></script>
 </body>
 </html>
-

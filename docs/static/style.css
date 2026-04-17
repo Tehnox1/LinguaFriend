@@ -54,9 +54,9 @@ input {
   z-index: 20;
   min-height: 62px;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr auto auto;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 18px 26px 0 24px;
   background: transparent;
   border: 0;
@@ -70,7 +70,7 @@ input {
   display: grid;
   place-items: center;
   font-family: "Segoe UI", Tahoma, sans-serif;
-  font-size: 1.28rem;
+  font-size: 1.12rem;
   font-weight: 800;
   color: #10131a;
   background:
@@ -80,6 +80,39 @@ input {
   box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.34);
   backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
   -webkit-backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
+}
+
+.coin-badge {
+  min-width: 64px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
+  -webkit-backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
+}
+
+.coin-icon {
+  font-size: 1rem;
+  line-height: 1;
+  color: #d79c1e;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.coin-value {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: #1a2330;
+  line-height: 1;
 }
 
 .top-menu-btn {
@@ -172,7 +205,14 @@ input {
   min-height: 34px;
   border-radius: 999px;
   padding: 0;
-  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI Symbol", "Segoe UI", Tahoma, sans-serif;
+  font-size: 1.18rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
   color: #16202a;
 }
 
@@ -185,8 +225,8 @@ input {
 }
 
 .hint-switch-track {
-  width: 66px;
-  height: 36px;
+  width: 58px;
+  height: 32px;
   border-radius: 999px;
   display: flex;
   align-items: center;
@@ -199,12 +239,12 @@ input {
 }
 
 .hint-switch-thumb {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
-  transform: translateX(30px);
+  transform: translateX(26px);
   transition: transform 0.22s ease;
 }
 
@@ -221,6 +261,45 @@ input {
 .menu-levels {
   align-items: flex-start;
   flex-direction: column;
+}
+
+.leaderboard-open-btn {
+  width: min(255px, 100%);
+  align-self: center;
+  min-height: 38px;
+  justify-content: center;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #18212d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.06);
+}
+
+.level-pills {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.level-pill {
+  flex: 1;
+  min-height: 40px;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #18212d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.06);
+}
+
+.level-pill.active {
+  background:
+    linear-gradient(180deg, rgba(187, 221, 255, 0.5), rgba(115, 171, 234, 0.22)),
+    rgba(149, 196, 247, 0.2);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .menu-theme {
@@ -250,25 +329,6 @@ input {
   color: #17202c;
 }
 
-.leaderboard-open-btn {
-  width: 100%;
-  min-height: 38px;
-  justify-content: center;
-  font-family: \"Segoe UI\", Tahoma, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #18212d;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.06);
-}
-
-.level-pills {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-}
-
 .theme-pills {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -279,38 +339,19 @@ input {
   min-width: 0;
 }
 
-.level-pill {
-  flex: 1;
-  min-height: 40px;
-  font-family: \"Segoe UI\", Tahoma, sans-serif;
-  font-size: 0.8rem;
-  font-weight: 800;
-  color: #18212d;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.06);
-}
-
 .theme-pill {
   flex: 0 0 auto;
   width: 100%;
   min-width: 0;
   min-height: 36px;
   padding: 0 10px;
-  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   font-size: 0.8rem;
   font-weight: 800;
   color: #18212d;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
     rgba(255, 255, 255, 0.06);
-}
-
-.level-pill.active {
-  background:
-    linear-gradient(180deg, rgba(187, 221, 255, 0.5), rgba(115, 171, 234, 0.22)),
-    rgba(149, 196, 247, 0.2);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .theme-pill.active {
@@ -326,7 +367,7 @@ input {
 }
 
 .leaderboard-panel {
-  width: min(392px, calc(100% - 28px));
+  width: min(360px, calc(100% - 34px));
   min-height: 340px;
   max-height: min(520px, calc(100dvh - 80px));
   display: grid;
@@ -340,8 +381,8 @@ input {
 
 .leaderboard-table {
   width: 100%;
-  padding: 12px;
-  border-radius: 22px;
+  padding: 10px;
+  border-radius: 26px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)),
     rgba(255, 255, 255, 0.05);
@@ -353,31 +394,30 @@ input {
 
 .leaderboard-row {
   display: grid;
-  grid-template-columns: 62px minmax(0, 1fr) 62px;
+  grid-template-columns: 54px minmax(0, 1fr) 54px;
   align-items: center;
-  gap: 10px;
-  min-height: 40px;
-  padding: 0 12px;
-  border-radius: 16px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05)),
-    rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 10px;
+  border-radius: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .leaderboard-row + .leaderboard-row {
-  margin-top: 8px;
+  margin-top: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
 .leaderboard-header {
-  min-height: 38px;
-  padding: 0 12px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  min-height: 32px;
+  padding: 0 12px 6px;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .leaderboard-rank,
@@ -398,9 +438,12 @@ input {
 .leaderboard-header .leaderboard-rank,
 .leaderboard-header .leaderboard-name,
 .leaderboard-header .leaderboard-score {
-  font-size: 0.74rem;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: 0.72rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   color: rgba(24, 33, 45, 0.7);
 }
@@ -469,33 +512,30 @@ input {
 }
 
 .messages {
+  position: relative;
+  z-index: 1;
   height: 100%;
   overflow-y: auto;
-  padding: 84px 10px 138px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(46, 142, 255, 0.9) transparent;
+  padding: 96px 18px 150px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .messages::-webkit-scrollbar {
-  width: 8px;
+  display: none;
+  width: 0;
+  height: 0;
 }
 
-.messages::-webkit-scrollbar-track {
-  background: transparent;
-}
 
-.messages::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(77, 163, 255, 0.95), rgba(18, 124, 255, 0.95));
-  border-radius: 999px;
-  border: 2px solid transparent;
-  background-clip: padding-box;
-}
+
+
 
 .msg {
   max-width: min(82%, 300px);
   margin: 0 0 8px;
   padding: 10px 12px;
-  border-radius: 18px;
+  border-radius: 22px;
   line-height: 1.45;
   font-size: 0.9rem;
   letter-spacing: 0.01em;
@@ -513,7 +553,8 @@ input {
     inset 0 1px 0 rgba(255, 255, 255, 0.58);
   position: relative;
   transform-origin: left bottom;
-  animation: bubbleIn 0.24s ease;
+  animation: bubbleIn 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
 }
 
 .msg.bot {
@@ -557,7 +598,8 @@ input {
 }
 
 .msg.sending {
-  opacity: 0.84;
+  opacity: 0.92;
+  animation: outgoingIn 0.26s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .msg.typing {
@@ -565,6 +607,7 @@ input {
   gap: 4px;
   min-width: 44px;
   align-items: center;
+  animation: typingIn 0.22s ease-out;
 }
 
 .msg.typing span {
@@ -633,6 +676,12 @@ input {
   -webkit-backdrop-filter: blur(20px) saturate(150%);
   font-size: 0.84rem;
   padding: 0 12px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    filter 0.2s ease;
 }
 
 button {
@@ -646,14 +695,22 @@ button {
   padding: 7px 12px;
   cursor: pointer;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    border-color 0.22s ease,
+    filter 0.2s ease,
+    opacity 0.2s ease;
 }
 
 button:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.04);
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.42);
 }
 
 button:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.985);
 }
 
 .answer-glass {
@@ -708,6 +765,11 @@ input {
   box-shadow: 0 10px 18px rgba(70, 54, 54, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    transform 0.2s ease;
 }
 
 input::placeholder {
@@ -739,6 +801,11 @@ input:focus {
   padding: 0;
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.22s ease,
+    background 0.22s ease,
+    filter 0.2s ease;
 }
 
 .send-icon {
@@ -764,7 +831,29 @@ input:focus {
 @keyframes bubbleIn {
   from {
     opacity: 0;
-    transform: translateY(8px) scale(0.98);
+    transform: translateY(14px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes outgoingIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) translateX(8px) scale(0.96);
+  }
+  to {
+    opacity: 0.92;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+@keyframes typingIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
   }
   to {
     opacity: 1;
@@ -814,8 +903,19 @@ input:focus {
 
   .top-pill {
     min-height: 40px;
-    font-size: 1.06rem;
+    font-size: 0.98rem;
     letter-spacing: 0;
+  }
+
+  .coin-badge {
+    min-width: 56px;
+    min-height: 38px;
+    padding: 0 10px;
+    gap: 6px;
+  }
+
+  .coin-value {
+    font-size: 0.82rem;
   }
 
   .top-menu-btn {
@@ -970,6 +1070,26 @@ body.theme-dark .top-pill {
     inset 0 -14px 28px rgba(9, 16, 26, 0.12);
 }
 
+body.theme-dark .coin-badge {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(176, 212, 255, 0.04)),
+    linear-gradient(135deg, rgba(84, 128, 181, 0.16), rgba(24, 42, 62, 0.14));
+  border-color: rgba(214, 233, 255, 0.2);
+  box-shadow:
+    0 14px 24px rgba(2, 6, 12, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -10px 18px rgba(9, 16, 26, 0.1);
+}
+
+body.theme-dark .coin-icon {
+  color: #f6c24d;
+  text-shadow: none;
+}
+
+body.theme-dark .coin-value {
+  color: #f2f7ff;
+}
+
 body.theme-dark .top-menu-btn {
   color: #f5f9ff;
   background:
@@ -1007,21 +1127,27 @@ body.theme-dark .group-row button,
 body.theme-dark input,
 body.theme-dark input::placeholder {
   color: #f2f7ff;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body.theme-dark .menu-head h2,
+body.theme-dark .menu-label {
+  font-weight: 800;
 }
 
 body.theme-dark .level-pill,
-body.theme-dark .theme-pill,
 body.theme-dark .leaderboard-open-btn {
-  width: 100%;
-  min-height: 38px;
-  justify-content: center;
-  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  color: #f2f7ff;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   font-size: 0.8rem;
   font-weight: 800;
-  color: #18212d;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.06);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(182, 216, 255, 0.04)),
+    linear-gradient(135deg, rgba(76, 110, 148, 0.18), rgba(18, 31, 44, 0.16));
+  box-shadow:
+    0 12px 24px rgba(1, 5, 10, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -10px 22px rgba(10, 18, 28, 0.1);
 }
 
 body.theme-dark .level-pill.active,
@@ -1037,7 +1163,6 @@ body.theme-dark .theme-pill.active {
 }
 
 body.theme-dark .leaderboard-table,
-body.theme-dark .leaderboard-row,
 body.theme-dark .leaderboard-empty {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(172, 208, 255, 0.06)),
@@ -1045,6 +1170,15 @@ body.theme-dark .leaderboard-empty {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.16),
     0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark .leaderboard-row {
+  background: transparent;
+  box-shadow: none;
+}
+
+body.theme-dark .leaderboard-row + .leaderboard-row {
+  border-top-color: rgba(214, 233, 255, 0.12);
 }
 
 body.theme-dark .leaderboard-header .leaderboard-rank,
@@ -1073,9 +1207,7 @@ body.theme-dark .chat-glass::after {
     radial-gradient(circle at 52% 100%, rgba(0, 0, 0, 0.14), transparent 34%);
 }
 
-body.theme-dark .messages::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(132, 187, 255, 0.9), rgba(54, 126, 230, 0.92));
-}
+body.theme-dark 
 
 body.theme-dark .msg {
   color: #f3f8ff;
@@ -1178,5 +1310,42 @@ body.theme-dark .msg.bot::before { display: none; }
 
 
 
+
+
+
+@media (max-width: 699px) {
+  .messages {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .messages::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+}
+
+
+
+
+
+
+
+
+
+
+.leaderboard-header .leaderboard-rank,
+.leaderboard-header .leaderboard-name,
+.leaderboard-header .leaderboard-score {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: rgba(24, 33, 45, 0.7);
+}
 
 

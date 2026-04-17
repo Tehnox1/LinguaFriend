@@ -2,12 +2,12 @@
 const answerForm = document.getElementById("answerForm");
 const answerInput = document.getElementById("answerInput");
 const topMenuBtn = document.getElementById("topMenuBtn");
+const coinValueEl = document.getElementById("coinValue");
 const menuOverlay = document.getElementById("menuOverlay");
 const menuBackdrop = document.getElementById("menuBackdrop");
 const closeMenuBtn = document.getElementById("closeMenuBtn");
 const hintToggle = document.getElementById("hintToggle");
-const lightThemeBtn = document.getElementById("lightThemeBtn");
-const darkThemeBtn = document.getElementById("darkThemeBtn");
+const themeToggle = document.getElementById("themeToggle");
 const leaderboardList = document.getElementById("leaderboardList");
 const leaderboardOverlay = document.getElementById("leaderboardOverlay");
 const leaderboardBackdrop = document.getElementById("leaderboardBackdrop");
@@ -26,6 +26,11 @@ let isSending = false;
 let currentState = null;
 let currentTheme = "light";
 
+function updateCoinBadge(state) {
+  if (!coinValueEl) return;
+  coinValueEl.textContent = String((state && state.coins) || 0);
+}
+
 function applyRuntimeMode() {
   const tg = window.Telegram && window.Telegram.WebApp;
   const ua = navigator.userAgent || "";
@@ -38,11 +43,10 @@ function applyRuntimeMode() {
 function applyTheme(theme) {
   currentTheme = theme === "dark" ? "dark" : "light";
   document.body.classList.toggle("theme-dark", currentTheme === "dark");
-  if (lightThemeBtn) {
-    lightThemeBtn.classList.toggle("active", currentTheme === "light");
-  }
-  if (darkThemeBtn) {
-    darkThemeBtn.classList.toggle("active", currentTheme === "dark");
+  if (themeToggle) {
+    const isDark = currentTheme === "dark";
+    themeToggle.classList.toggle("off", !isDark);
+    themeToggle.setAttribute("aria-pressed", isDark ? "true" : "false");
   }
   try {
     localStorage.setItem("linguafriend-theme", currentTheme);
@@ -138,6 +142,7 @@ function syncMenuState(state) {
   }
 
   renderLeaderboard(state.leaderboard || []);
+  updateCoinBadge(state);
 }
 
 function render(state) {
@@ -283,12 +288,10 @@ hintToggle.addEventListener("click", async () => {
   render(state);
 });
 
-if (lightThemeBtn) {
-  lightThemeBtn.addEventListener("click", () => applyTheme("light"));
-}
-
-if (darkThemeBtn) {
-  darkThemeBtn.addEventListener("click", () => applyTheme("dark"));
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    applyTheme(currentTheme === "dark" ? "light" : "dark");
+  });
 }
 
 for (const button of levelButtons) {

@@ -22,6 +22,10 @@ try:
 except ZoneInfoNotFoundError:
     # Fallback for Windows Python installs without tzdata.
     SAMARA_TZ = timezone(timedelta(hours=4))
+try:
+    MOSCOW_TZ = ZoneInfo("Europe/Moscow")
+except ZoneInfoNotFoundError:
+    MOSCOW_TZ = timezone(timedelta(hours=3))
 MAX_HISTORY_MESSAGES = 120
 MAX_LEADERBOARD_ROWS = 10
 
@@ -30,6 +34,10 @@ USER_STATES: Dict[str, Dict[str, Any]] = {}
 
 def _today_key() -> str:
     return datetime.now(SAMARA_TZ).date().isoformat()
+
+
+def _moscow_day_key() -> str:
+    return datetime.now(MOSCOW_TZ).date().isoformat()
 
 
 def _load_leaderboard() -> Dict[str, Dict[str, Any]]:
@@ -45,10 +53,16 @@ def _load_leaderboard() -> Dict[str, Dict[str, Any]]:
     for key, value in data.items():
         if not isinstance(value, dict):
             continue
+        if key == "__meta__":
+            cleaned[key] = {
+                "last_coin_payout_day": str(value.get("last_coin_payout_day", "")),
+            }
+            continue
         cleaned[key] = {
             "display_name": str(value.get("display_name", "User")).strip() or "User",
             "score": int(value.get("score", 0) or 0),
             "last_point_day": str(value.get("last_point_day", "")),
+            "coins": int(value.get("coins", 0) or 0),
         }
     return cleaned
 
@@ -61,10 +75,40 @@ def _leaderboard_rows() -> List[Dict[str, Any]]:
     data = _load_leaderboard()
     rows = [
         {"display_name": item["display_name"], "score": item["score"]}
-        for item in data.values()
+        for key, item in data.items()
+        if key != "__meta__"
     ]
     rows.sort(key=lambda item: (-item["score"], item["display_name"].lower()))
     return rows[:MAX_LEADERBOARD_ROWS]
+
+
+def _coin_payouts() -> Dict[int, int]:
+    return {1: 50, 2: 30, 3: 20, 4: 10, 5: 5}
+
+
+def _apply_daily_coin_payouts() -> None:
+    data = _load_leaderboard()
+    meta = data.get("__meta__", {"last_coin_payout_day": ""})
+    today = _moscow_day_key()
+    if str(meta.get("last_coin_payout_day", "")) == today:
+        return
+
+    rows: List[tuple[str, Dict[str, Any]]] = [
+        (key, value)
+        for key, value in data.items()
+        if key != "__meta__" and isinstance(value, dict)
+    ]
+    rows.sort(key=lambda item: (-int(item[1].get("score", 0)), str(item[1].get("display_name", "")).lower()))
+
+    payouts = _coin_payouts()
+    for index, (key, row) in enumerate(rows, start=1):
+        reward = payouts.get(index, 0)
+        row["coins"] = int(row.get("coins", 0) or 0) + reward
+        data[key] = row
+
+    meta["last_coin_payout_day"] = today
+    data["__meta__"] = meta
+    _save_leaderboard(data)
 
 
 def _ensure_state() -> Dict[str, Any]:
@@ -115,18 +159,20 @@ def _display_name_from_payload(data: Dict[str, Any], fallback: str) -> str:
 
 
 def _sync_leaderboard_profile(state: Dict[str, Any]) -> None:
+    _apply_daily_coin_payouts()
     data = _load_leaderboard()
     key = _leaderboard_key(state)
-    row = data.get(key, {"display_name": state["display_name"], "score": 0, "last_point_day": ""})
+    row = data.get(key, {"display_name": state["display_name"], "score": 0, "last_point_day": "", "coins": 0})
     row["display_name"] = state["display_name"]
     data[key] = row
     _save_leaderboard(data)
 
 
 def _award_point(state: Dict[str, Any]) -> bool:
+    _apply_daily_coin_payouts()
     data = _load_leaderboard()
     key = _leaderboard_key(state)
-    row = data.get(key, {"display_name": state["display_name"], "score": 0, "last_point_day": ""})
+    row = data.get(key, {"display_name": state["display_name"], "score": 0, "last_point_day": "", "coins": 0})
     row["display_name"] = state["display_name"]
     row["score"] = int(row.get("score", 0)) + 1
     row["last_point_day"] = _today_key()
@@ -188,6 +234,9 @@ def _intro_text() -> str:
     )
 
 def _build_payload(state: Dict[str, Any]) -> Dict[str, Any]:
+    _apply_daily_coin_payouts()
+    data = _load_leaderboard()
+    row = data.get(_leaderboard_key(state), {})
     return {
         "level": state.get("level"),
         "hints_enabled": bool(state.get("hints_enabled", True)),
@@ -195,6 +244,7 @@ def _build_payload(state: Dict[str, Any]) -> Dict[str, Any]:
         "has_current_task": bool(state.get("current_task")),
         "has_last_review": bool(state.get("last_review")),
         "display_name": state.get("display_name"),
+        "coins": int(row.get("coins", 0) or 0),
         "leaderboard": _leaderboard_rows(),
     }
 
