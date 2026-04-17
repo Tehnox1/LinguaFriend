@@ -2,6 +2,7 @@
 const answerForm = document.getElementById("answerForm");
 const answerInput = document.getElementById("answerInput");
 const topMenuBtn = document.getElementById("topMenuBtn");
+const coinBadge = document.getElementById("coinBadge");
 const coinValueEl = document.getElementById("coinValue");
 const menuOverlay = document.getElementById("menuOverlay");
 const menuBackdrop = document.getElementById("menuBackdrop");
@@ -13,6 +14,9 @@ const leaderboardOverlay = document.getElementById("leaderboardOverlay");
 const leaderboardBackdrop = document.getElementById("leaderboardBackdrop");
 const closeLeaderboardBtn = document.getElementById("closeLeaderboardBtn");
 const openLeaderboardBtn = document.getElementById("openLeaderboardBtn");
+const coinsOverlay = document.getElementById("coinsOverlay");
+const coinsBackdrop = document.getElementById("coinsBackdrop");
+const closeCoinsBtn = document.getElementById("closeCoinsBtn");
 const levelButtons = Array.from(document.querySelectorAll(".level-pill"));
 const nextButton = document.getElementById("nextBtn");
 const moreInfoButton = document.getElementById("moreInfoBtn");
@@ -198,6 +202,14 @@ function closeLeaderboard() {
   leaderboardOverlay.hidden = true;
 }
 
+function openCoins() {
+  coinsOverlay.hidden = false;
+}
+
+function closeCoins() {
+  coinsOverlay.hidden = true;
+}
+
 async function syncTelegramProfile() {
   const tg = window.Telegram && window.Telegram.WebApp;
   const user = tg && tg.initDataUnsafe && tg.initDataUnsafe.user;
@@ -278,6 +290,11 @@ topMenuBtn.addEventListener("click", () => {
 openLeaderboardBtn.addEventListener("click", openLeaderboard);
 closeLeaderboardBtn.addEventListener("click", closeLeaderboard);
 leaderboardBackdrop.addEventListener("click", closeLeaderboard);
+if (coinBadge) {
+  coinBadge.addEventListener("click", openCoins);
+}
+closeCoinsBtn.addEventListener("click", closeCoins);
+coinsBackdrop.addEventListener("click", closeCoins);
 closeMenuBtn.addEventListener("click", closeMenu);
 menuBackdrop.addEventListener("click", closeMenu);
 

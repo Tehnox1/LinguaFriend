@@ -374,6 +374,49 @@ input {
   grid-template-rows: auto 1fr;
 }
 
+.coins-panel {
+  width: min(340px, calc(100% - 34px));
+}
+
+.coins-info {
+  display: grid;
+  gap: 14px;
+  color: #203040;
+  font-size: 0.94rem;
+  line-height: 1.45;
+}
+
+.coins-info p {
+  margin: 0;
+}
+
+.coins-rules {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.coins-rule {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
+}
+
+.coins-rule strong {
+  font-size: 0.96rem;
+}
+
+.coins-note {
+  color: rgba(32, 48, 64, 0.76);
+}
+
 .leaderboard-panel .leaderboard-list {
   overflow-y: auto;
   padding-right: 2px;
@@ -1185,6 +1228,21 @@ body.theme-dark .leaderboard-header .leaderboard-rank,
 body.theme-dark .leaderboard-header .leaderboard-name,
 body.theme-dark .leaderboard-header .leaderboard-score {
   color: rgba(232, 241, 255, 0.74);
+}
+
+body.theme-dark .coins-info {
+  color: #eef4ff;
+}
+
+body.theme-dark .coins-rules {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(172, 208, 255, 0.04)),
+    linear-gradient(135deg, rgba(54, 82, 112, 0.16), rgba(12, 22, 32, 0.18));
+  border-color: rgba(214, 233, 255, 0.14);
+}
+
+body.theme-dark .coins-note {
+  color: rgba(232, 241, 255, 0.72);
 }
 
 body.theme-dark .chat-glass {
