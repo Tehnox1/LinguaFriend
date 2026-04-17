@@ -6,6 +6,8 @@ const menuOverlay = document.getElementById("menuOverlay");
 const menuBackdrop = document.getElementById("menuBackdrop");
 const closeMenuBtn = document.getElementById("closeMenuBtn");
 const hintToggle = document.getElementById("hintToggle");
+const lightThemeBtn = document.getElementById("lightThemeBtn");
+const darkThemeBtn = document.getElementById("darkThemeBtn");
 const leaderboardList = document.getElementById("leaderboardList");
 const leaderboardOverlay = document.getElementById("leaderboardOverlay");
 const leaderboardBackdrop = document.getElementById("leaderboardBackdrop");
@@ -22,6 +24,7 @@ const API_BASE =
 
 let isSending = false;
 let currentState = null;
+let currentTheme = "light";
 
 function applyRuntimeMode() {
   const tg = window.Telegram && window.Telegram.WebApp;
@@ -30,6 +33,31 @@ function applyRuntimeMode() {
   const isMobile = window.matchMedia("(max-width: 699px)").matches;
 
   document.body.classList.toggle("tg-lite", isTelegramWebView && isMobile);
+}
+
+function applyTheme(theme) {
+  currentTheme = theme === "dark" ? "dark" : "light";
+  document.body.classList.toggle("theme-dark", currentTheme === "dark");
+  if (lightThemeBtn) {
+    lightThemeBtn.classList.toggle("active", currentTheme === "light");
+  }
+  if (darkThemeBtn) {
+    darkThemeBtn.classList.toggle("active", currentTheme === "dark");
+  }
+  try {
+    localStorage.setItem("linguafriend-theme", currentTheme);
+  } catch {}
+}
+
+function loadTheme() {
+  try {
+    const saved = localStorage.getItem("linguafriend-theme");
+    if (saved === "dark" || saved === "light") {
+      applyTheme(saved);
+      return;
+    }
+  } catch {}
+  applyTheme("light");
 }
 
 function shouldAutoFocusInput() {
@@ -104,7 +132,7 @@ function syncMenuState(state) {
   hintToggle.classList.toggle("off", !hintsEnabled);
   hintToggle.setAttribute("aria-pressed", hintsEnabled ? "true" : "false");
 
-  const currentLevel = state.level || "A2";
+  const currentLevel = state.level || "";
   for (const button of levelButtons) {
     button.classList.toggle("active", button.dataset.level === currentLevel);
   }
@@ -255,6 +283,14 @@ hintToggle.addEventListener("click", async () => {
   render(state);
 });
 
+if (lightThemeBtn) {
+  lightThemeBtn.addEventListener("click", () => applyTheme("light"));
+}
+
+if (darkThemeBtn) {
+  darkThemeBtn.addEventListener("click", () => applyTheme("dark"));
+}
+
 for (const button of levelButtons) {
   button.addEventListener("click", async () => {
     if (isSending) return;
@@ -286,6 +322,7 @@ document.addEventListener("keydown", (event) => {
 
 (async () => {
   applyRuntimeMode();
+  loadTheme();
   await syncTelegramProfile();
   await refresh();
 })();

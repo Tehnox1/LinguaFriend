@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
@@ -16,7 +16,7 @@
 
       <div id="menuOverlay" class="menu-overlay" hidden>
         <div id="menuBackdrop" class="menu-backdrop"></div>
-        <section class="menu-panel" aria-label="Меню">
+        <section class="menu-panel" aria-label="Настройки">
           <div class="menu-head">
             <h2>Меню</h2>
             <button id="closeMenuBtn" class="menu-close" type="button" aria-label="Закрыть">×</button>
@@ -31,6 +31,7 @@
             </button>
           </div>
 
+
           <div class="menu-block menu-levels">
             <span class="menu-label">Сложность</span>
             <div class="level-pills">
@@ -41,8 +42,16 @@
           </div>
 
           <div class="menu-block menu-leaderboard-trigger">
-            <span class="menu-label centered-label">Leaderboard</span>
+            <span class="menu-label centered-label">Таблица лидеров</span>
             <button id="openLeaderboardBtn" class="leaderboard-open-btn" type="button">Открыть список</button>
+          </div>
+
+          <div class="menu-block menu-theme">
+            <span class="menu-label centered-label">Тема</span>
+            <div class="theme-pills">
+              <button id="lightThemeBtn" class="theme-pill active" data-theme="light" type="button">Светлая</button>
+              <button id="darkThemeBtn" class="theme-pill" data-theme="dark" type="button">Тёмная</button>
+            </div>
           </div>
         </section>
       </div>
@@ -51,7 +60,7 @@
         <div id="leaderboardBackdrop" class="menu-backdrop"></div>
         <section class="menu-panel leaderboard-panel" aria-label="Leaderboard">
           <div class="menu-head">
-            <h2>Leaderboard</h2>
+            <h2>Таблица лидеров</h2>
             <button id="closeLeaderboardBtn" class="menu-close" type="button" aria-label="Закрыть">×</button>
           </div>
           <div id="leaderboardList" class="leaderboard-list"></div>
@@ -90,3 +99,4 @@
   <script src="./static/app.js"></script>
 </body>
 </html>
+

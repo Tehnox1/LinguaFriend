@@ -1,7 +1,7 @@
 ﻿:root {
-  --glass-bg: rgba(255, 255, 255, 0.16);
-  --glass-strong: rgba(255, 255, 255, 0.24);
-  --glass-border: rgba(255, 255, 255, 0.38);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-strong: rgba(255, 255, 255, 0.16);
+  --glass-border: rgba(255, 255, 255, 0.26);
   --ink: #0f1722;
   --ink-soft: rgba(15, 23, 34, 0.68);
 }
@@ -42,8 +42,8 @@ body {
 .msg,
 button,
 input {
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
 }
 
 .top-glass {
@@ -74,12 +74,12 @@ input {
   font-weight: 800;
   color: #10131a;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.05)),
-    rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(24px) saturate(165%) contrast(1.05);
-  -webkit-backdrop-filter: blur(24px) saturate(165%) contrast(1.05);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
+  -webkit-backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
 }
 
 .top-menu-btn {
@@ -92,13 +92,13 @@ input {
   padding: 0;
   margin-right: 0;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08)),
-    rgba(255, 255, 255, 0.06);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.02);
   color: #1a2330;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.52);
-  backdrop-filter: blur(24px) saturate(165%) contrast(1.05);
-  -webkit-backdrop-filter: blur(24px) saturate(165%) contrast(1.05);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
+  -webkit-backdrop-filter: blur(28px) saturate(170%) contrast(1.04);
 }
 
 .menu-overlay {
@@ -124,12 +124,12 @@ input {
   border-radius: 26px;
   padding: 18px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.06)),
-    rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.34);
-  backdrop-filter: blur(24px) saturate(165%);
-  -webkit-backdrop-filter: blur(24px) saturate(165%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
+    rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 22px 46px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(30px) saturate(175%);
+  -webkit-backdrop-filter: blur(30px) saturate(175%);
   animation: menuIn 0.22s ease;
 }
 
@@ -223,6 +223,13 @@ input {
   flex-direction: column;
 }
 
+.menu-theme {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: 12px;
+}
+
 .menu-leaderboard {
   align-items: flex-start;
   flex-direction: column;
@@ -235,19 +242,20 @@ input {
 
 .centered-label {
   width: 100%;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10px;
   font-family: "Segoe UI", Tahoma, sans-serif;
-  font-size: 1.12rem;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #17202c;
 }
 
 .leaderboard-open-btn {
   width: 100%;
-  min-height: 44px;
+  min-height: 38px;
   justify-content: center;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  font-size: 0.96rem;
+  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  font-size: 0.8rem;
   font-weight: 800;
   color: #18212d;
   background:
@@ -261,11 +269,36 @@ input {
   width: 100%;
 }
 
+.theme-pills {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  width: 100%;
+  justify-content: stretch;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
 .level-pill {
   flex: 1;
-  min-height: 44px;
-  font-family: "Segoe UI", Tahoma, sans-serif;
-  font-size: 0.96rem;
+  min-height: 40px;
+  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #18212d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.06);
+}
+
+.theme-pill {
+  flex: 0 0 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 36px;
+  padding: 0 10px;
+  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  font-size: 0.8rem;
   font-weight: 800;
   color: #18212d;
   background:
@@ -274,6 +307,13 @@ input {
 }
 
 .level-pill.active {
+  background:
+    linear-gradient(180deg, rgba(187, 221, 255, 0.5), rgba(115, 171, 234, 0.22)),
+    rgba(149, 196, 247, 0.2);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.theme-pill.active {
   background:
     linear-gradient(180deg, rgba(187, 221, 255, 0.5), rgba(115, 171, 234, 0.22)),
     rgba(149, 196, 247, 0.2);
@@ -464,13 +504,13 @@ input {
   word-break: break-word;
   writing-mode: horizontal-tb;
   color: var(--ink);
-  border: 1px solid rgba(255, 255, 255, 0.48);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(243, 248, 255, 0.78)),
-    rgba(255, 255, 255, 0.8);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.74), rgba(243, 248, 255, 0.5)),
+    rgba(255, 255, 255, 0.46);
   box-shadow:
-    0 14px 28px rgba(26, 35, 48, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+    0 14px 28px rgba(26, 35, 48, 0.11),
+    inset 0 1px 0 rgba(255, 255, 255, 0.58);
   position: relative;
   transform-origin: left bottom;
   animation: bubbleIn 0.24s ease;
@@ -479,8 +519,8 @@ input {
 .msg.bot {
   border-top-left-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(241, 246, 252, 0.82)),
-    rgba(255, 255, 255, 0.82);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(241, 246, 252, 0.54)),
+    rgba(255, 255, 255, 0.5);
 }
 
 .msg.user {
@@ -488,11 +528,11 @@ input {
   border-top-right-radius: 8px;
   color: #112231;
   background:
-    linear-gradient(180deg, rgba(207, 234, 255, 0.95), rgba(177, 211, 239, 0.82)),
-    rgba(201, 227, 247, 0.84);
+    linear-gradient(180deg, rgba(207, 234, 255, 0.72), rgba(177, 211, 239, 0.5)),
+    rgba(201, 227, 247, 0.46);
   box-shadow:
-    0 14px 28px rgba(17, 42, 66, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.72);
+    0 14px 28px rgba(17, 42, 66, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.56);
   transform-origin: right bottom;
 }
 
@@ -584,13 +624,13 @@ input {
   font-weight: 800;
   letter-spacing: -0.01em;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.03);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.015);
   color: #20262e;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  box-shadow: 0 8px 14px rgba(70, 54, 54, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.26);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 18px rgba(70, 54, 54, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
   font-size: 0.84rem;
   padding: 0 12px;
 }
@@ -656,18 +696,18 @@ input {
   font-family: "Segoe UI", Tahoma, sans-serif;
   font-weight: 700;
   letter-spacing: -0.01em;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 999px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04)),
-    rgba(255, 255, 255, 0.03);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.025)),
+    rgba(255, 255, 255, 0.015);
   padding: 10px 14px;
   font-size: 15px;
   color: #222831;
   outline: none;
-  box-shadow: 0 8px 14px rgba(70, 54, 54, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.26);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  box-shadow: 0 10px 18px rgba(70, 54, 54, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
 input::placeholder {
@@ -691,14 +731,14 @@ input:focus {
   align-items: center;
   justify-content: center;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02)),
-    rgba(88, 92, 95, 0.28);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.015)),
+    rgba(88, 92, 95, 0.16);
   color: #5aa8ff;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 8px 14px rgba(70, 54, 54, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 18px rgba(70, 54, 54, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.16);
   padding: 0;
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
 }
 
 .send-icon {
@@ -897,3 +937,246 @@ body.tg-lite .hint-switch-track,
 body.tg-lite .hint-switch-thumb {
   box-shadow: none;
 }
+
+body.theme-dark {
+  --ink: #f2f7ff;
+  --ink-soft: rgba(242, 247, 255, 0.76);
+  background:
+    radial-gradient(circle at 14% 12%, rgba(87, 148, 255, 0.16), transparent 22%),
+    radial-gradient(circle at 84% 16%, rgba(138, 111, 255, 0.1), transparent 22%),
+    radial-gradient(circle at 28% 78%, rgba(82, 182, 170, 0.08), transparent 24%),
+    linear-gradient(180deg, #121a24 0%, #0f1822 46%, #0b121a 100%);
+}
+
+body.theme-dark .top-pill,
+body.theme-dark .top-menu-btn,
+body.theme-dark .menu-panel,
+body.theme-dark .leaderboard-table,
+body.theme-dark .leaderboard-row,
+body.theme-dark .group-row button,
+body.theme-dark input,
+body.theme-dark .send-btn {
+  border-color: rgba(214, 233, 255, 0.2);
+}
+
+body.theme-dark .top-pill {
+  color: #f5f9ff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(176, 212, 255, 0.04)),
+    linear-gradient(135deg, rgba(84, 128, 181, 0.2), rgba(24, 42, 62, 0.18));
+  box-shadow:
+    0 14px 30px rgba(2, 6, 12, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 28px rgba(9, 16, 26, 0.12);
+}
+
+body.theme-dark .top-menu-btn {
+  color: #f5f9ff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(164, 204, 255, 0.04)),
+    linear-gradient(135deg, rgba(82, 124, 173, 0.2), rgba(22, 38, 55, 0.18));
+  box-shadow:
+    0 14px 28px rgba(2, 6, 12, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -12px 24px rgba(8, 15, 24, 0.12);
+}
+
+body.theme-dark .menu-backdrop {
+  background: rgba(4, 8, 14, 0.46);
+}
+
+body.theme-dark .menu-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(184, 216, 255, 0.04)),
+    linear-gradient(135deg, rgba(70, 102, 140, 0.2), rgba(16, 27, 39, 0.32));
+  box-shadow:
+    0 28px 52px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -18px 36px rgba(7, 13, 20, 0.08);
+}
+
+body.theme-dark .menu-head h2,
+body.theme-dark .menu-label,
+body.theme-dark .centered-label,
+body.theme-dark .menu-close,
+body.theme-dark .leaderboard-name,
+body.theme-dark .leaderboard-rank,
+body.theme-dark .leaderboard-score,
+body.theme-dark .leaderboard-empty,
+body.theme-dark .group-row button,
+body.theme-dark input,
+body.theme-dark input::placeholder {
+  color: #f2f7ff;
+}
+
+body.theme-dark .level-pill,
+body.theme-dark .theme-pill,
+body.theme-dark .leaderboard-open-btn {
+  width: 100%;
+  min-height: 38px;
+  justify-content: center;
+  font-family: \"Segoe UI\", Tahoma, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #18212d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08)),
+    rgba(255, 255, 255, 0.06);
+}
+
+body.theme-dark .level-pill.active,
+body.theme-dark .theme-pill.active {
+  color: #f7fbff;
+  background:
+    linear-gradient(180deg, rgba(212, 232, 255, 0.28), rgba(107, 171, 255, 0.14)),
+    linear-gradient(135deg, rgba(104, 152, 218, 0.42), rgba(30, 61, 104, 0.34));
+  box-shadow:
+    0 14px 28px rgba(1, 6, 12, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -10px 24px rgba(14, 34, 58, 0.16);
+}
+
+body.theme-dark .leaderboard-table,
+body.theme-dark .leaderboard-row,
+body.theme-dark .leaderboard-empty {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(172, 208, 255, 0.06)),
+    linear-gradient(135deg, rgba(54, 82, 112, 0.22), rgba(12, 22, 32, 0.24));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+body.theme-dark .leaderboard-header .leaderboard-rank,
+body.theme-dark .leaderboard-header .leaderboard-name,
+body.theme-dark .leaderboard-header .leaderboard-score {
+  color: rgba(232, 241, 255, 0.74);
+}
+
+body.theme-dark .chat-glass {
+  background:
+    radial-gradient(circle at 12% 14%, rgba(103, 159, 255, 0.12), transparent 18%),
+    radial-gradient(circle at 86% 18%, rgba(132, 110, 255, 0.08), transparent 18%),
+    radial-gradient(circle at 26% 70%, rgba(92, 198, 190, 0.06), transparent 22%),
+    radial-gradient(circle at 80% 82%, rgba(82, 151, 255, 0.08), transparent 20%),
+    linear-gradient(180deg, #18222d 0%, #131c26 40%, #0f1720 100%);
+}
+
+body.theme-dark .chat-glass::before {
+  opacity: 0.2;
+}
+
+body.theme-dark .chat-glass::after {
+  background:
+    linear-gradient(180deg, rgba(228, 239, 255, 0.05), transparent 18%, transparent 76%, rgba(0, 0, 0, 0.12)),
+    radial-gradient(circle at 48% 34%, rgba(213, 231, 255, 0.04), transparent 38%),
+    radial-gradient(circle at 52% 100%, rgba(0, 0, 0, 0.14), transparent 34%);
+}
+
+body.theme-dark .messages::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(132, 187, 255, 0.9), rgba(54, 126, 230, 0.92));
+}
+
+body.theme-dark .msg {
+  color: #f3f8ff;
+  border-color: rgba(220, 237, 255, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(188, 216, 255, 0.04)),
+    linear-gradient(135deg, rgba(70, 96, 128, 0.24), rgba(18, 30, 42, 0.2));
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -14px 28px rgba(9, 16, 25, 0.1);
+}
+
+body.theme-dark .msg.bot {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(196, 221, 255, 0.04)),
+    linear-gradient(135deg, rgba(68, 94, 122, 0.24), rgba(15, 26, 38, 0.18));
+}
+
+body.theme-dark .msg.user {
+  color: #f7fbff;
+  background:
+    linear-gradient(180deg, rgba(204, 228, 255, 0.14), rgba(108, 167, 247, 0.07)),
+    linear-gradient(135deg, rgba(66, 114, 173, 0.3), rgba(24, 49, 78, 0.22));
+  box-shadow:
+    0 16px 30px rgba(0, 0, 0, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -14px 28px rgba(11, 26, 46, 0.12);
+}
+
+body.theme-dark .msg.bot::before,
+body.theme-dark .msg.user::before {
+  top: 6px;
+  background: rgba(255, 255, 255, 0.34);
+}
+
+body.theme-dark .msg.user::before {
+  top: 6px;
+  background: rgba(232, 242, 255, 0.28);
+}
+
+body.theme-dark .msg.typing span {
+  background: #e0ecff;
+}
+
+body.theme-dark .group-row button {
+  color: #f2f7ff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(176, 210, 255, 0.04)),
+    linear-gradient(135deg, rgba(73, 107, 147, 0.18), rgba(16, 27, 39, 0.16));
+}
+
+body.theme-dark input {
+  color: #f5f9ff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.11), rgba(182, 215, 255, 0.04)),
+    linear-gradient(135deg, rgba(68, 98, 135, 0.18), rgba(16, 27, 38, 0.14));
+}
+
+body.theme-dark input::placeholder {
+  color: rgba(233, 242, 255, 0.74);
+}
+
+body.theme-dark input:focus {
+  border-color: rgba(142, 196, 255, 0.88);
+  box-shadow: 0 0 0 3px rgba(102, 165, 239, 0.18);
+}
+
+body.theme-dark .send-btn {
+  color: #a3d1ff;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(171, 208, 255, 0.03)),
+    linear-gradient(135deg, rgba(64, 96, 133, 0.16), rgba(14, 24, 35, 0.16));
+}
+
+body.theme-dark .send-icon svg {
+  fill: #9fceff;
+}
+
+
+
+
+
+
+.msg.bot::before { display: none; }
+body.theme-dark .msg.bot::before { display: none; }
+
+
+
+
+.menu-theme .centered-label {
+  width: auto;
+  min-width: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+
+
+
+
+
